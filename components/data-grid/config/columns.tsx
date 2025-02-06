@@ -69,6 +69,8 @@ export const createColumns = (
   rowsToDelete?: Set<number>,
   copiedRows?: Set<number>,
 ): GridColDef[] => {
+
+  
   const handleFilterChange = (field: string, value: string) => {
     setFilterModel({
       ...filterModel,

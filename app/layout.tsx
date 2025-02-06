@@ -1,32 +1,46 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
+// app/layout.tsx
+'use client'; // 👈️ Adicione esta linha AQUI, no topo do arquivo!
 
-const inter = Inter({ subsets: ['latin'] });
+import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import ThemeToggle from '../components/theme/ThemeToggle';
+import { ThemeProviderWrapper } from '../components/theme/ThemeContext';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { useTheme } from '../components/theme/ThemeContext';
 
-export const metadata: Metadata = {
-  title: 'Data Grid Premium Demo',
-  description: 'Next.js application with MUI X Data Grid Premium features',
-};
+interface LayoutProps {
+    children: React.ReactNode;
+}
+
+function AppContent({ children }: LayoutProps) { // Remova a tipagem duplicada : LayoutProps
+    const { theme } = useTheme();
+
+    return (
+        <MuiThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+        </MuiThemeProvider>
+    );
+}
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en" suppressHydrationWarning>
+            <body suppressHydrationWarning>
+                <ThemeProviderWrapper>
+                    <AppContent>
+                        <ThemeToggle /> {/* 👈️ Mova o ThemeToggle para DENTRO de AppContent */}
+                        {children}
+                    </AppContent>
+                </ThemeProviderWrapper>
+            </body>
+        </html>
+    );
 }

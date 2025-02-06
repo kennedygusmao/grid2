@@ -8,6 +8,7 @@ import { SaveChangesModal } from './components/save-changes-modal';
 import { GridHeader } from './components/grid-header';
 import { gridStyles } from './styles/grid-styles';
 import { exportToCSV, exportToExcel } from './utils/export';
+import {useTheme} from '@/components/theme/ThemeContext';
 
 interface ReusableDataGridProps {
   title?: string;
@@ -20,6 +21,9 @@ export function ReusableDataGrid({
   onSave,
   className 
 }: ReusableDataGridProps) {
+
+  const theme = useTheme().theme;
+
   const {
     rows,
     filterModel,
@@ -141,8 +145,24 @@ export function ReusableDataGrid({
           }}
           pageSizeOptions={[25, 50, 100]}
           disableRowSelectionOnClick
-          disableMultipleSelection={false}
+          // disableMultipleSelection={false}
           autoHeight={false}
+          sx={{
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+            borderColor: theme.palette.divider,
+            '& .MuiDataGrid-cell': {
+              borderColor: theme.palette.divider,
+              color: theme.palette.text.primary,
+            },
+            '& .MuiDataGrid-columnHeaders': {
+              backgroundColor: theme.palette.background.default,
+              color: theme.palette.text.secondary,
+            },
+            '& .MuiDataGrid-row:hover': {
+              backgroundColor: theme.palette.action.hover,
+            },
+          }}
         />
       </Box>
 

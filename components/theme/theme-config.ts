@@ -13,27 +13,108 @@ export const getThemeOptions = (mode: 'light' | 'dark'): ThemeOptions => ({
       : {
           background: {
             default: '#121212',
-            paper: '#1e1e1e',
+            paper: '#1a1a1a',
+          },
+          action: {
+            hover: 'rgba(255, 255, 255, 0.08)',
           },
         }),
   },
   components: {
     MuiDataGrid: {
+      defaultProps: {
+        sx: {
+          '& .MuiDataGrid-menu': {
+            backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+            '& .MuiMenuItem-root': {
+              color: mode === 'dark' ? '#ffffff' : '#000000',
+            },
+          },
+          '& .MuiDataGrid-panelWrapper': {
+            backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+            color: mode === 'dark' ? '#ffffff' : '#000000',
+          },
+          '& .MuiDataGrid-panel': {
+            backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+          },
+        },
+      },
       styleOverrides: {
+        root: {
+          backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+          color: mode === 'dark' ? '#ffffff' : '#000000',
+          '& .MuiDataGrid-main': {
+            backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+          },
+          '& .MuiDataGrid-menuList': {
+            backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+            '& .MuiMenuItem-root': {
+              color: mode === 'dark' ? '#ffffff' : '#000000',
+            },
+          },
+        },
         columnHeader: {
-          backgroundColor: mode === 'dark' ? '#1e1e1e' : '#f5f5f5',
+          backgroundColor: mode === 'dark' ? '#242424' : '#f5f5f5',
           color: mode === 'dark' ? '#ffffff' : '#000000',
           '&:hover': {
             backgroundColor: mode === 'dark' ? '#2d2d2d' : '#e5e5e5',
           },
         },
         cell: {
+          backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
           borderBottom: `1px solid ${mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'}`,
+          '&:hover': {
+            backgroundColor: mode === 'dark' ? '#242424' : '#f5f5f5',
+          },
         },
         row: {
           '&:hover': {
             backgroundColor: mode === 'dark' ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.04)',
           },
+          '&:nth-of-type(odd)': {
+            backgroundColor: mode === 'dark' ? '#1e1e1e' : '#fafafa',
+          },
+        },
+        footerContainer: {
+          backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+          borderTop: `1px solid ${mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'}`,
+        },
+        virtualScroller: {
+          backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+        },
+        pinnedColumns: {
+          backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+          '& .MuiDataGrid-cell': {
+            backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+          },
+          '& .MuiDataGrid-columnHeader': {
+            backgroundColor: mode === 'dark' ? '#242424' : '#f5f5f5',
+          },
+        },
+      },
+    },
+    MuiPopover: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+          color: mode === 'dark' ? '#ffffff' : '#000000',
+          '& .MuiMenuItem-root': {
+            color: mode === 'dark' ? '#ffffff' : '#000000',
+            '&:hover': {
+              backgroundColor: mode === 'dark' ? '#242424' : '#f5f5f5',
+            },
+          },
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+          color: mode === 'dark' ? '#ffffff' : '#000000',
+        },
+        list: {
+          backgroundColor: mode === 'dark' ? '#1a1a1a' : '#ffffff',
         },
       },
     },
