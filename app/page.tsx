@@ -2,7 +2,7 @@
 
 import { ReusableDataGrid } from '@/components/data-grid/reusable-data-grid';
 import { MUIProvider } from '@/components/providers/mui-provider';
-
+import User from '@/components/user/user';
 export default function Home() {
   const handleSave = (updatedRows: any[]) => {
     console.log('Saved rows:', updatedRows);
@@ -17,6 +17,7 @@ export default function Home() {
               title="Data Grid Premium Demo"
               onSave={handleSave}
             />
+            <User />
           </div>
         </div>
       </main>

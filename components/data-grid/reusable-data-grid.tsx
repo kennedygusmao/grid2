@@ -8,7 +8,7 @@ import { SaveChangesModal } from './components/save-changes-modal';
 import { GridHeader } from './components/grid-header';
 import { gridStyles } from './styles/grid-styles';
 import { exportToCSV, exportToExcel } from './utils/export';
-import {useTheme} from '@/components/theme/ThemeContext';
+import { useTheme } from '@mui/material/styles';
 
 interface ReusableDataGridProps {
   title?: string;
@@ -21,8 +21,15 @@ export function ReusableDataGrid({
   onSave,
   className 
 }: ReusableDataGridProps) {
+  const theme = useTheme();
+  
+  console.log('Current theme:', theme);
+  console.log('Theme palette:', theme?.palette);
 
-  const theme = useTheme().theme;
+  if (!theme) {
+    console.error('Theme is not available');
+    return null;
+  }
 
   const {
     rows,
@@ -154,13 +161,86 @@ export function ReusableDataGrid({
             '& .MuiDataGrid-cell': {
               borderColor: theme.palette.divider,
               color: theme.palette.text.primary,
+              padding: '8px 16px',
             },
             '& .MuiDataGrid-columnHeaders': {
-              backgroundColor: theme.palette.background.default,
-              color: theme.palette.text.secondary,
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              borderBottom: `1px solid ${theme.palette.divider}`,
+              fontWeight: 'bold',
+              '& .MuiDataGrid-columnHeader': {
+                padding: '12px 16px',
+              },
             },
-            '& .MuiDataGrid-row:hover': {
-              backgroundColor: theme.palette.action.hover,
+            '& .MuiDataGrid-row': {
+              '&:nth-of-type(odd)': {
+                backgroundColor: theme.palette.action.hover,
+              },
+              '&:hover': {
+                backgroundColor: theme.palette.action.selected,
+              },
+              '&.row-deleted': {
+                backgroundColor: `${theme.palette.error.main}20`,
+                '&:hover': {
+                  backgroundColor: `${theme.palette.error.main}30`,
+                },
+              },
+              '&.row-modified': {
+                backgroundColor: `${theme.palette.warning.main}20`,
+                '&:hover': {
+                  backgroundColor: `${theme.palette.warning.main}30`,
+                },
+              },
+              '&.row-copied': {
+                backgroundColor: `${theme.palette.success.main}20`,
+                '&:hover': {
+                  backgroundColor: `${theme.palette.success.main}30`,
+                },
+              },
+            },
+            '& .actions-cell': {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
+              '& .MuiButtonBase-root': {
+                padding: '4px',
+                minWidth: 'unset',
+                '&.edit-button': {
+                  color: theme.palette.primary.main,
+                },
+                '&.delete-button': {
+                  color: theme.palette.error.main,
+                },
+                '&.copy-button': {
+                  color: theme.palette.success.main,
+                },
+                '&.save-button': {
+                  color: theme.palette.success.main,
+                },
+                '&.cancel-button': {
+                  color: theme.palette.error.main,
+                },
+                '&:hover': {
+                  backgroundColor: `${theme.palette.action.hover}80`,
+                },
+              },
+            },
+            '& .id-cell': {
+              fontWeight: 'bold',
+              color: theme.palette.primary.main,
+            },
+            '& .grid-cell': {
+              fontSize: '14px',
+            },
+            '& .MuiDataGrid-toolbar': {
+              backgroundColor: theme.palette.background.paper,
+              borderBottom: `1px solid ${theme.palette.divider}`,
+              padding: '8px 16px',
+            },
+            '& .MuiDataGrid-footerContainer': {
+              backgroundColor: theme.palette.background.paper,
+              borderTop: `1px solid ${theme.palette.divider}`,
             },
           }}
         />
