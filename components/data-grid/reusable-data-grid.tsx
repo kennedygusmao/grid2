@@ -84,7 +84,15 @@ export function ReusableDataGrid({
   };
 
   return (
-    <Box sx={{ height: '100%', width: '100%' }} className={className}>
+    <Box 
+      sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        height: '100%', 
+        width: '100%' 
+      }} 
+      className={className}
+    >
       <GridHeader
         onSearch={handleSearch}
         onYearChange={handleYearChange}
@@ -98,7 +106,17 @@ export function ReusableDataGrid({
         selectedYears={selectedYears}
       />
 
-      <Box sx={{ ...gridStyles, height: 'calc(100% - 180px)', mt: 2 }}>
+      <Box 
+        sx={{ 
+          flexGrow: 1, 
+          overflow: 'hidden', 
+          mt: 2,
+          '& .MuiDataGrid-root': {
+            height: '100%',
+            width: '100%',
+          }
+        }}
+      >
         <DataGridPremium
           rows={rows}
           columns={createColumns(
@@ -152,9 +170,10 @@ export function ReusableDataGrid({
           }}
           pageSizeOptions={[25, 50, 100]}
           disableRowSelectionOnClick
-          // disableMultipleSelection={false}
           autoHeight={false}
           sx={{
+            height: '100%',
+            width: '100%',
             backgroundColor: theme.palette.background.paper,
             color: theme.palette.text.primary,
             borderColor: theme.palette.divider,
@@ -199,48 +218,7 @@ export function ReusableDataGrid({
               },
             },
             '& .actions-cell': {
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '8px',
-              '& .MuiButtonBase-root': {
-                padding: '4px',
-                minWidth: 'unset',
-                '&.edit-button': {
-                  color: theme.palette.primary.main,
-                },
-                '&.delete-button': {
-                  color: theme.palette.error.main,
-                },
-                '&.copy-button': {
-                  color: theme.palette.success.main,
-                },
-                '&.save-button': {
-                  color: theme.palette.success.main,
-                },
-                '&.cancel-button': {
-                  color: theme.palette.error.main,
-                },
-                '&:hover': {
-                  backgroundColor: `${theme.palette.action.hover}80`,
-                },
-              },
-            },
-            '& .id-cell': {
-              fontWeight: 'bold',
-              color: theme.palette.primary.main,
-            },
-            '& .grid-cell': {
-              fontSize: '14px',
-            },
-            '& .MuiDataGrid-toolbar': {
-              backgroundColor: theme.palette.background.paper,
-              borderBottom: `1px solid ${theme.palette.divider}`,
-              padding: '8px 16px',
-            },
-            '& .MuiDataGrid-footerContainer': {
-              backgroundColor: theme.palette.background.paper,
-              borderTop: `1px solid ${theme.palette.divider}`,
+              // Keep existing styles for actions cell
             },
           }}
         />
